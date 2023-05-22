@@ -1,0 +1,25 @@
+
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Product Application</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li *ngIf="isUserAuthenticated()" class="nav-item">
+          <a class="nav-link" routerLink="/products">Products</a>
+        </li>
+        <li *ngIf="isUserAuthenticated()" class="nav-item">
+          <a class="nav-link" (click)="logOut()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div *ngIf="!isUserAuthenticated()">
+    <app-login></app-login>
+  </div>
+  <div *ngIf="isUserAuthenticated()" style="color:green;">
+    <h2>
+      Welcome to the Product Application
+    </h2>
+  </div>

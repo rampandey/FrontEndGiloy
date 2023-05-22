@@ -1,0 +1,101 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Product Application</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="logOut()">Logout</a>
+        </li>
+        <li *ngIf="!isUserAuthenticated()" class="nav-item active">
+          <a class="nav-link" routerLink="/product">Products</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  
+  <form class="form-horizontal" [formGroup]="productForm">
+      <h1 style="text-align: center;">Welcome </h1>
+      <div>
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="pwd">Product Name:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="txtProductName" formControlName="productName"
+            placeholder="Name of Product">
+        </div>
+      </div>
+      <br />
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="pwd">Product Description :</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="txtProductDescription" formControlName="productDescription"
+            placeholder="Product Description">
+        </div>
+      </div>
+      <br />
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="pwd">Product Cost:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="txtProductCost" formControlName="productCost" placeholder="Cost of Product">
+        </div>
+      </div>
+      <br />
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="pwd">Product Stock Available :</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="txtStock" formControlName="productStock" placeholder="Stock Available">
+        </div>
+      </div>
+      <br />
+       <div class="form-group">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+              <button type="submit" class="btn btn-primary" (click)="PostProduct(productForm.value)">Submit</button>
+            </div>
+             <div class="col-sm">
+              <button type="submit" class="btn btn-primary" (click)="UpdateProduct(productForm.value)">Update</button>
+            </div>
+            <div class="col-sm">
+              <button type="submit" class="btn btn-primary" (click)="Clear(productForm.value)">Clear</button>
+            </div>
+          </div>
+        </div>
+      <br />
+      </div>
+      <div>
+        <div class="alert alert-success" style="text-align: center;"><b>Product List</b></div>
+        <div class="table-responsive" style="text-align: center;">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Product Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">Cost</th>
+              <th scope="col">Stock</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let prd of ProductList | async; index as i">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{prd.productName}}</td>
+              <td>{{prd.productDescription}}</td>
+              <td>{{prd.productCost}}</td>
+              <td>{{prd.productStock}}</td>
+              <td><button type="button" class="btn1" matTooltip="Click Edit Button" (click)='ProductDetailsToEdit(prd.productId)'>Edit</button> 
+                |
+                <button type="button" class="btn1" matTooltip="Click Delete Button" (click)="DeleteProduct(prd.productId)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+          </table>
+        </div>
+      </div>
+      </div>
+    </form>
